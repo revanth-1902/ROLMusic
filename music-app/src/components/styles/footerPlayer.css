@@ -825,9 +825,26 @@
 .fs-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 4px 20px 12px;
+  justify-content: space-around;
+  padding: 4px 16px;
+  width: 100%;
+  box-sizing: border-box;
   flex-shrink: 0;
+}
+
+.fs-controls-row-1 {
+  margin-bottom: 4px;
+}
+
+.fs-controls-row-2 {
+  gap: 4px;
+  padding-bottom: 12px;
+  justify-content: space-evenly;
+}
+
+.fs-controls-row-2 .fs-ctrl-btn {
+  width: 40px;
+  height: 40px;
 }
 
 .fs-ctrl-btn {
@@ -847,7 +864,7 @@
 
 .fs-ctrl-btn:hover {
   color: white;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .fs-ctrl-btn:active {
@@ -855,7 +872,7 @@
 }
 
 .fs-ctrl-btn.active {
-  color: #1db954;
+  color: #ec4899;
 }
 
 .fs-play-btn {

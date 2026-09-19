@@ -756,8 +756,8 @@ export default function FooterPlayer() {
                     <WaveProgressBar progress={progress} duration={duration} onSeek={seek} />
                   </div>
 
-                  {/* ── Controls ── */}
-                  <div className="fs-controls">
+                  {/* ── 1st Row Controls (Primary Playback) ── */}
+                  <div className="fs-controls fs-controls-row-1">
                     <button
                       className={`fs-ctrl-btn ${isShuffle ? 'active' : ''}`}
                       onClick={toggleShuffle}
@@ -792,13 +792,64 @@ export default function FooterPlayer() {
                     >
                       <RepeatIcon sx={{ fontSize: '1.4rem' }} />
                     </button>
+                  </div>
 
+                  {/* ── 2nd Row Controls (Feature & Utility Actions) ── */}
+                  <div className="fs-controls fs-controls-row-2">
                     <button
                       className={`fs-ctrl-btn ${isAutoPlay ? 'active' : ''}`}
                       onClick={toggleAutoPlay}
                       title={isAutoPlay ? 'Autoplay On' : 'Autoplay Off'}
                     >
-                      <AutoAwesomeIcon sx={{ fontSize: '1.4rem' }} />
+                      <AutoAwesomeIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className="fs-ctrl-btn"
+                      onClick={() => downloadSong(current)}
+                      title="Download MP3"
+                    >
+                      <DownloadIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className={`fs-ctrl-btn ${isKaraoke ? 'active' : ''}`}
+                      onClick={() => { triggerHaptic(15); toggleKaraoke(); }}
+                      title={isKaraoke ? 'Karaoke Vocal Filter ON' : 'Karaoke Vocal Filter OFF'}
+                    >
+                      <MicIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className="fs-ctrl-btn"
+                      onClick={() => { triggerHaptic(15); togglePiPLyrics(current, '♪ ROLMusic Synced Lyrics ♪'); }}
+                      title="Floating Lyrics Window (Picture-in-Picture)"
+                    >
+                      <PictureInPictureIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className="fs-ctrl-btn"
+                      onClick={() => { triggerHaptic(15); setShowLyricCardModal(true); }}
+                      title="Export Lyric Card Image"
+                    >
+                      <CameraAltIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className={`fs-ctrl-btn ${isSavedOffline ? 'active' : ''}`}
+                      onClick={handleSaveOffline}
+                      title={isSavedOffline ? 'Saved Offline' : 'Save for Offline Playback'}
+                    >
+                      <DownloadForOfflineIcon sx={{ fontSize: '1.3rem' }} />
+                    </button>
+
+                    <button
+                      className={`fs-ctrl-btn ${isLyricsFlipped ? 'active' : ''}`}
+                      onClick={() => setIsLyricsFlipped(l => !l)}
+                      title={isLyricsFlipped ? 'Back to Cover' : 'Show Lyrics'}
+                    >
+                      <LyricsIcon sx={{ fontSize: '1.3rem' }} />
                     </button>
                   </div>
 
