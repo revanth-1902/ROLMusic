@@ -42,7 +42,6 @@ import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import MicIcon from "@mui/icons-material/Mic";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 
-import AudioVisualizer from "../ui/AudioVisualizer";
 import LyricCardModal from "../ui/LyricCardModal";
 import { togglePiPLyrics } from "../../utils/pipLyrics";
 import { triggerHaptic } from "../../utils/haptics";
@@ -742,13 +741,6 @@ export default function FooterPlayer() {
                       </div>
                     </div>
                   </div>
-
-                  {/* ── Audio Visualizer ── */}
-                  {showVisualizer && !isLyricsFlipped && (
-                    <Box sx={{ width: '100%', height: '70px', my: 1 }}>
-                      <AudioVisualizer analyserNode={analyserNode} isPlaying={playing} />
-                    </Box>
-                  )}
 
                   {/* ── Song Info & Web App Actions ── */}
                   <div className="fs-info">
