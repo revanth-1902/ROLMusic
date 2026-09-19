@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Table</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        thead {
+            background-color: #4CAF50;
+            color: rgb(151, 27, 27);
+        }
+
+        tfoot {
+            background-color: #ddd;
+            font-weight: bold;
+        }
+
+        /* Row colours */
+        .row1 { background-color: #f2f2f2; }
+        .row2 { background-color: #e6f7ff; }
+        .row3 { background-color: #fff2cc; }
+
+        /* Special cells */
+        .lab { background-color: #ff9999; }
+        .elective { background-color: #99ccff; }
+    </style>
+</head>
+
+<body style="background-color:red">
+
+<h2 style="text-align:center;">Time Table</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Day/Time</th>
+            <th>9-10</th>
+            <th>10-11</th>
+            <th>11-12</th>
+            <th>12-1</th>
+            <th>2-3</th>
+            <th>3-4</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr class="row1">
+            <td>Monday</td>
+            <td>Maths</td>
+            <td>Physics</td>
+            <td class="lab" colspan="2">Physics Lab</td>
+            <td>English</td>
+            <td>Sports</td>
+        </tr>
+
+        <tr class="row2">
+            <td>Tuesday</td>
+            <td>Chemistry</td>
+            <td class="elective" rowspan="2">AI Elective</td>
+            <td>Maths</td>
+            <td>Library</td>
+            <td class="lab" colspan="2">Computer Lab</td>
+        </tr>
+
+        <tr class="row3">
+            <td>Wednesday</td>
+            <td>Physics</td>
+            <td>Chemistry</td>
+            <td>English</td>
+            <td>Maths</td>
+            <td>Games</td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="7">College Time Table - 2026</td>
+        </tr>
+    </tfoot>
+</table>
+
+</body>
+</html>
