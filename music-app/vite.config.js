@@ -8,21 +8,7 @@ export default defineConfig({
     sourcemap: false,
     minify: 'esbuild',
     target: 'esnext',
-    chunkSizeWarningLimit: 1600,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('scheduler')) {
-              return 'vendor-react';
-            }
-            if (id.includes('@mui') || id.includes('@emotion')) {
-              return 'vendor-mui';
-            }
-          }
-        }
-      }
-    }
+    chunkSizeWarningLimit: 2500,
   },
   esbuild: {
     drop: ['console', 'debugger'],
