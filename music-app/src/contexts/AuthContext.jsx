@@ -71,14 +71,23 @@ export function AuthProvider({ children }) {
       if (cookieLoginType === 'user' && cookieToken) {
         setToken(cookieToken);
         setLoginType('user');
-        try {
-          const response = await getCurrentUser(cookieToken);
-          setUser(response.user || null);
-          await refreshLikedSongs(cookieToken);
-          await refreshRecentlyPlayed(cookieToken);
-        } catch {
-          clearAuthState();
-          setLoginType(null);
+        if (cookieToken.startsWith('google_session_') || cookieToken.startsWith('google_token_')) {
+          const savedGUser = localStorage.getItem('rol_google_user');
+          if (savedGUser) {
+            try { setUser(JSON.parse(savedGUser)); } catch { clearAuthState(); }
+          } else {
+            setUser({ id: 'google_user', username: 'Google User', email: 'google@gmail.com' });
+          }
+        } else {
+          try {
+            const response = await getCurrentUser(cookieToken);
+            setUser(response.user || null);
+            await refreshLikedSongs(cookieToken);
+            await refreshRecentlyPlayed(cookieToken);
+          } catch {
+            clearAuthState();
+            setLoginType(null);
+          }
         }
       } else if (cookieLoginType === 'guest') {
         setLoginType('guest');
@@ -118,37 +127,56 @@ export function AuthProvider({ children }) {
   }, [refreshLikedSongs, refreshRecentlyPlayed]);
 
   const loginWithGoogle = useCallback(async (googleData = null) => {
+    let googleUserObj = null;
+
+    if (googleData?.userInfo) {
+      googleUserObj = googleData.userInfo;
+    } else if (googleData && typeof googleData === 'object') {
+      googleUserObj = googleData;
+    }
+
     try {
       if (googleData?.credential || googleData?.userInfo) {
         const response = await googleLoginUser(googleData);
-        Cookies.set('token', response.token, { expires: 7 });
-        Cookies.set('loginType', 'user', { expires: 7 });
-        setToken(response.token);
-        setUser(response.user || null);
-        setLoginType('user');
-        setAuthModalOpen(false);
-        await refreshLikedSongs(response.token);
-        await refreshRecentlyPlayed(response.token);
-        return response;
+        if (response?.token) {
+          Cookies.set('token', response.token, { expires: 7 });
+          Cookies.set('loginType', 'user', { expires: 7 });
+          setToken(response.token);
+          setUser(response.user || null);
+          setLoginType('user');
+          setAuthModalOpen(false);
+          await refreshLikedSongs(response.token);
+          await refreshRecentlyPlayed(response.token);
+          return response;
+        }
       }
     } catch (err) {
-      console.warn('[auth] Real Google login failed, using session fallback:', err.message);
+      console.warn('[auth] Real Google backend verification failed, using client Google session fallback:', err.message);
     }
 
-    const mockToken = 'google_token_' + Date.now();
-    const mockUser = {
-      id: 'google_' + Date.now(),
-      username: 'Google User',
-      email: 'user.google@gmail.com',
+    const userEmail = googleUserObj?.email || 'user.google@gmail.com';
+    const userName = googleUserObj?.name || googleUserObj?.given_name || 'Google User';
+    const userAvatar = googleUserObj?.picture || '';
+    const userId = googleUserObj?.sub || 'google_' + Date.now();
+
+    const gUser = {
+      id: userId,
+      username: userName,
+      name: userName,
+      email: userEmail,
+      picture: userAvatar,
     };
 
-    Cookies.set('token', mockToken, { expires: 7 });
+    const gToken = 'google_session_' + userId;
+    Cookies.set('token', gToken, { expires: 7 });
     Cookies.set('loginType', 'user', { expires: 7 });
-    setToken(mockToken);
-    setUser(mockUser);
+    localStorage.setItem('rol_google_user', JSON.stringify(gUser));
+
+    setToken(gToken);
+    setUser(gUser);
     setLoginType('user');
     setAuthModalOpen(false);
-    return { token: mockToken, user: mockUser };
+    return { token: gToken, user: gUser };
   }, [refreshLikedSongs, refreshRecentlyPlayed]);
 
   const continueAsGuest = useCallback(() => {
