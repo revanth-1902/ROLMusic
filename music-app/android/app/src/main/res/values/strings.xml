@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ROL Music</string>
+    <string name="title_activity_main">ROL Music</string>
+    <string name="package_name">com.rolmusic.app</string>
+    <string name="custom_url_scheme">com.rolmusic.app</string>
+</resources>
