@@ -14,22 +14,34 @@ const errorHandler = require('./middleware/errorHandler');
 dotenv.config();
 
 const app = express();
-const corsOrigins = (CORS_ORIGIN || '')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
 
-app.use(helmet());
+// Configure CORS dynamically to support any origin with credentials
 app.use(cors({
-  origin: corsOrigins.length > 0 ? corsOrigins : true,
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    return callback(null, true);
+  },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200,
 }));
+
+// Enable pre-flight for all routes
+app.options('*', cors());
+
+// Helmet with relaxed cross-origin resource policy
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  crossOriginOpenerPolicy: { policy: "unsafe-none" },
+}));
+
 app.use(express.json());
 app.use(morgan('dev'));
 
 const limiter = rateLimit({
-  windowMs: Number(RATE_LIMIT_WINDOW_MS),
-  max: Number(RATE_LIMIT_MAX),
+  windowMs: Number(RATE_LIMIT_WINDOW_MS) || 900000,
+  max: Number(RATE_LIMIT_MAX) || 100,
   standardHeaders: true,
   legacyHeaders: false,
 });
