@@ -742,59 +742,12 @@ export default function FooterPlayer() {
                     </div>
                   </div>
 
-                  {/* ── Song Info & Web App Actions ── */}
+                  {/* ── Song Info ── */}
                   <div className="fs-info">
                     <div className="fs-info-text">
                       <div className="fs-song-title">{current.title}</div>
                       <div className="fs-song-artist">{current.artistName}</div>
                       {current.album && <div className="fs-song-album">{current.album}</div>}
-                    </div>
-                    <div className="fs-info-actions" style={{ gap: '8px' }}>
-                      <SongActions song={current} size="medium" />
-
-                      {/* Karaoke Vocal Filter Button */}
-                      <button
-                        className={`fs-lyrics-btn ${isKaraoke ? 'active' : ''}`}
-                        onClick={() => { triggerHaptic(15); toggleKaraoke(); }}
-                        title={isKaraoke ? 'Karaoke Vocal Filter ON' : 'Karaoke Vocal Filter OFF'}
-                      >
-                        <MicIcon sx={{ fontSize: '1.4rem' }} />
-                      </button>
-
-                      {/* PiP Floating Lyrics Button */}
-                      <button
-                        className="fs-lyrics-btn"
-                        onClick={() => { triggerHaptic(15); togglePiPLyrics(current, '♪ ROLMusic Synced Lyrics ♪'); }}
-                        title="Floating Lyrics Window (Picture-in-Picture)"
-                      >
-                        <PictureInPictureIcon sx={{ fontSize: '1.4rem' }} />
-                      </button>
-
-                      {/* Lyric Card Exporter Button */}
-                      <button
-                        className="fs-lyrics-btn"
-                        onClick={() => { triggerHaptic(15); setShowLyricCardModal(true); }}
-                        title="Export Lyric Card Image"
-                      >
-                        <CameraAltIcon sx={{ fontSize: '1.4rem' }} />
-                      </button>
-
-                      {/* Offline Save Button */}
-                      <button
-                        className={`fs-lyrics-btn ${isSavedOffline ? 'active' : ''}`}
-                        onClick={handleSaveOffline}
-                        title={isSavedOffline ? 'Saved Offline' : 'Save for Offline Playback'}
-                      >
-                        <DownloadForOfflineIcon sx={{ fontSize: '1.4rem' }} />
-                      </button>
-
-                      <button
-                        className={`fs-lyrics-btn ${isLyricsFlipped ? 'active' : ''}`}
-                        onClick={() => setIsLyricsFlipped(l => !l)}
-                        title={isLyricsFlipped ? 'Back to Cover' : 'Show Lyrics'}
-                      >
-                        <LyricsIcon sx={{ fontSize: '1.4rem' }} />
-                      </button>
                     </div>
                   </div>
 
