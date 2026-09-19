@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: rolmusic-frontend
+    env: static
+    rootDir: music-app
+    buildCommand: npm run build
+    staticPublishPath: music-app/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
