@@ -228,10 +228,17 @@ export default function AuthPage() {
                 onClose={() => setLangAnchorEl(null)}
                 PaperProps={{
                   sx: {
-                    borderRadius: '12px',
+                    borderRadius: '16px',
                     mt: 1,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
-                    background: '#ffffff',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                    background: 'rgba(15, 23, 42, 0.95)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: '#ffffff',
+                    '& .MuiMenuItem-root': {
+                      color: '#ffffff',
+                      '&:hover': { background: 'rgba(168, 85, 247, 0.2)' }
+                    }
                   }
                 }}
               >
@@ -253,11 +260,31 @@ export default function AuthPage() {
             </div>
           </div>
 
+          {/* Mode Switcher Segmented Control */}
+          <div className="auth-mode-switcher">
+            <button
+              type="button"
+              className={`auth-mode-btn ${mode === 'login' ? 'active' : ''}`}
+              onClick={() => { setMode('login'); setError(''); }}
+            >
+              Login
+            </button>
+            <button
+              type="button"
+              className={`auth-mode-btn ${mode === 'signup' ? 'active' : ''}`}
+              onClick={() => { setMode('signup'); setError(''); }}
+            >
+              Sign Up
+            </button>
+          </div>
+
           {/* Form Content */}
           <div className="auth-form-body">
-            <h1 className="auth-main-heading">Hi Music Lover</h1>
+            <h1 className="auth-main-heading">
+              {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+            </h1>
             <p className="auth-sub-heading">
-              {mode === 'login' ? 'Welcome back to ROL Music' : 'Create your account to unlock unlimited music'}
+              {mode === 'login' ? 'Stream your favorite tracks anytime' : 'Join ROL Music for unlimited listening'}
             </p>
 
             <form onSubmit={handleSubmit} className="auth-form-inputs">
