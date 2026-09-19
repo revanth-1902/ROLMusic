@@ -3,8 +3,11 @@ services:
     name: rolmusic-frontend
     env: static
     rootDir: music-app
-    buildCommand: npm run build
+    buildCommand: NODE_OPTIONS=--max-old-space-size=4096 npm run build
     staticPublishPath: music-app/dist
+    envVars:
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=4096
     routes:
       - type: rewrite
         source: /*
