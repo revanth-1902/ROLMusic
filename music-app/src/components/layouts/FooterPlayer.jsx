@@ -36,14 +36,8 @@ import { shareSong } from "../../utils/share";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import MP3Tag from 'mp3tag.js';
 
-import PictureInPictureIcon from "@mui/icons-material/PictureInPicture";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import GraphicEqIcon from "@mui/icons-material/GraphicEq";
-import MicIcon from "@mui/icons-material/Mic";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 
-import LyricCardModal from "../ui/LyricCardModal";
-import { togglePiPLyrics } from "../../utils/pipLyrics";
 import { triggerHaptic } from "../../utils/haptics";
 import { saveSongOffline, isSongSavedOffline } from "../../utils/offlineStorage";
 
@@ -55,7 +49,7 @@ export default function FooterPlayer() {
 
   const {
     current, playing, audioLoading, playSong, togglePlay, progress, duration, seek, toggleLoop, loop, volume, setVolume, isMuted, toggleMute,
-    analyserNode, isKaraoke, toggleKaraoke, pannerVal, setPannerVal
+    analyserNode, pannerVal, setPannerVal
   } = useAudioPlayer();
   const { queue, setQueue, reorderQueue, removeFromQueue, isShuffle, toggleShuffle, isAutoPlay, toggleAutoPlay } = useQueue();
 
@@ -70,7 +64,6 @@ export default function FooterPlayer() {
   const [showDesktopLyrics, setShowDesktopLyrics] = useState(false);
   const [isLyricsFlipped, setIsLyricsFlipped] = useState(false);
 
-  const [showLyricCardModal, setShowLyricCardModal] = useState(false);
   const [showVisualizer, setShowVisualizer] = useState(true);
   const [isSavedOffline, setIsSavedOffline] = useState(false);
 
@@ -1095,13 +1088,6 @@ export default function FooterPlayer() {
           </MenuItem>
         )}
       </Menu>
-
-      <LyricCardModal
-        open={showLyricCardModal}
-        onClose={() => setShowLyricCardModal(false)}
-        song={current}
-        lyricsLines={lyricsData?.synced || []}
-      />
     </>
   );
 }
