@@ -813,30 +813,6 @@ export default function FooterPlayer() {
                     </button>
 
                     <button
-                      className={`fs-ctrl-btn ${isKaraoke ? 'active' : ''}`}
-                      onClick={() => { triggerHaptic(15); toggleKaraoke(); }}
-                      title={isKaraoke ? 'Karaoke Vocal Filter ON' : 'Karaoke Vocal Filter OFF'}
-                    >
-                      <MicIcon sx={{ fontSize: '1.3rem' }} />
-                    </button>
-
-                    <button
-                      className="fs-ctrl-btn"
-                      onClick={() => { triggerHaptic(15); togglePiPLyrics(current, '♪ ROLMusic Synced Lyrics ♪'); }}
-                      title="Floating Lyrics Window (Picture-in-Picture)"
-                    >
-                      <PictureInPictureIcon sx={{ fontSize: '1.3rem' }} />
-                    </button>
-
-                    <button
-                      className="fs-ctrl-btn"
-                      onClick={() => { triggerHaptic(15); setShowLyricCardModal(true); }}
-                      title="Export Lyric Card Image"
-                    >
-                      <CameraAltIcon sx={{ fontSize: '1.3rem' }} />
-                    </button>
-
-                    <button
                       className={`fs-ctrl-btn ${isSavedOffline ? 'active' : ''}`}
                       onClick={handleSaveOffline}
                       title={isSavedOffline ? 'Saved Offline' : 'Save for Offline Playback'}
